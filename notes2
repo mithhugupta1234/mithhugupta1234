@@ -1,0 +1,267 @@
+Sudhakar Sharma
+•
+18:40
+Array Methods
+Adding Elements into Page
+
+EX:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var categories = ["All", "Electronics", "Fashion", "Footwear", "Offers"];
+        function bodyload(){
+            categories.map(function(category){
+                 var option = document.createElement("option");
+                 var li = document.createElement("li");
+
+                 option.text = category;
+                 option.value = category;
+
+                 li.innerHTML = category;
+
+                 document.querySelector("select").appendChild(option);
+                 document.querySelector("ol").appendChild(li);
+
+                 var link = document.createElement("a");
+                 link.href = `${category}.html`;
+                 link.innerHTML = category;
+
+                 document.querySelector("nav").appendChild(link);
+
+                 var ul_li = document.createElement("li");
+                 var input = document.createElement("input");
+                 
+                 input.type = "checkbox";
+                 input.value = category;
+
+
+                 var label = document.createElement("label");
+                 label.innerHTML = category;
+
+                 ul_li.appendChild(input);
+                 ul_li.appendChild(label);
+
+                 document.querySelector("ul").appendChild(ul_li);
+
+            })
+        }
+    </script>
+    <style>
+        nav a {
+            margin-right: 100px;
+        }
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+<body onload="bodyload()">
+    <h2>Choose a Category</h2>
+    <select>
+
+    </select>
+    <h2>Categories List</h2>
+    <ol>
+
+    </ol>
+    <h2>Shopper</h2>
+    <nav>
+
+    </nav>
+    <h2>Select Categories</h2>
+    <ul>
+
+    </ul>
+</body>
+</html>
+
+
+Ex:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var categories = ["All", "Electronics", "Fashion", "Footwear", "Offers"];
+        function bodyload(){
+            categories.map(function(category){
+                 var li = document.createElement("li");
+                 li.innerHTML = `<input type="checkbox"> <label> ${category} </label>`;
+
+                 document.querySelector("ul").appendChild(li);
+            })
+        }
+    </script>
+</head>
+<body onload="bodyload()">
+    <ul>
+
+    </ul>
+</body>
+</html>
+
+Ex: Creating Table
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function bodyload(){
+            var table = document.createElement("table");
+            table.border = "1";
+            table.width = "50%";
+
+            var thead = document.createElement("thead");
+            var tbody = document.createElement("tbody");
+
+            var tr_head = document.createElement("tr");
+            var tr_body = document.createElement("tr");
+
+            var th = document.createElement("th");
+            var td = document.createElement("td");
+
+            th.innerHTML = "Name";
+            td.innerHTML = "Samsung TV";
+
+            tr_head.appendChild(th);
+            tr_body.appendChild(td);
+
+            thead.appendChild(tr_head);
+            tbody.appendChild(tr_body);
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+
+            document.querySelector("body").appendChild(table);
+        }
+    </script>
+</head>
+<body onload="bodyload()">
+   
+</body>
+</html>
+
+
+Ex: Array Manipulations [Adding Movies]
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript">
+        var movies = ["MUFASA:THE LION KING", "MISS YOU"];
+
+        function LoadMovies(){
+            document.getElementById("lstMovies").innerHTML="";
+            movies.map(function(movie){
+                 var option = document.createElement("option");
+                 option.text = movie;
+                 option.value = movie;
+
+                 document.getElementById("lstMovies").appendChild(option);
+            })
+            document.getElementById("lblCount").innerHTML = `Total No of Movies : ${movies.length}`;
+        }
+
+        function AddClick(){
+            var movieName = document.getElementById("txtMovie").value;
+            movies.push(movieName);
+            document.getElementById("txtMovie").value = " ";
+            alert(`${movieName}\nAdded Successfully`);
+            LoadMovies();
+        }
+
+        function SortAsc(){
+            movies.sort();
+            LoadMovies();
+        }
+
+        function SortDsc(){
+            movies.sort();
+            movies.reverse();
+            LoadMovies();
+        }
+
+        function RemoveSelected(){
+            var movieName = document.getElementById("lstMovies").value;
+            var movieIndex = movies.indexOf(movieName);
+            var choice = confirm(`Are you sure?\nWant to Delete ${movieName}?`);
+            if(choice==true){
+                movies.splice(movieIndex,1);
+                LoadMovies();
+            }
+        }
+        function ClearAll(){
+            movies.length = 0;
+            LoadMovies();
+        }
+        function EditClick(){
+            var movieName = document.getElementById("lstMovies").value;
+            document.getElementById("txtEditMovie").value = movieName;
+        }
+        function SaveClick(){
+            var movieName = document.getElementById("lstMovies").value;
+            var movieIndex = movies.indexOf(movieName);
+       
+            movies[movieIndex] = document.getElementById("txtEditMovie").value;
+            LoadMovies();
+        }
+    </script>
+</head>
+<body class="container-fluid" onload="LoadMovies()">
+    <h3>Admin Dashboard</h3>
+    <div class="w-25">
+        <div class="input-group">
+            <input type="text" id="txtMovie" class="form-control" placeholder="New Movie Name">
+            <button onclick="AddClick()" class="btn btn-primary bi bi-film"> Add </button>
+        </div>
+        <div class="my-3">
+            <div class="my-2">
+                <button onclick="SortAsc()" class="btn btn-warning bi bi-sort-alpha-down"></button>
+                <button onclick="SortDsc()" class="btn btn-success bi bi-sort-alpha-up"></button>
+            </div>
+            <select class="form-select" size="3" id="lstMovies">
+
+            </select>
+            <div class="my-2">
+                <span id="lblCount"></span>
+            </div>
+            <div class="my-2 btn-group">
+                <button onclick="RemoveSelected()" class="btn btn-danger bi bi-trash-fill"> Remove Selected </button>
+                <button onclick="ClearAll()" class="btn btn-outline-danger bi bi-trash">Clear All</button>
+                <button onclick="EditClick()" class="btn btn-warning bi bi-pen-fill" data-bs-target="#edit" data-bs-toggle="modal"> Edit</button>
+                <div class="modal fade" id="edit">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Edit Movie</h3>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="form-control" id="txtEditMovie">
+                            </div>
+                            <div class="modal-footer">
+                                <button onclick="SaveClick()" data-bs-dismiss="modal" class="btn btn-success">Save</button>
+                                <button data-bs-dismiss="modal" class="btn btn-danger"> Cancel </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
